@@ -1,0 +1,1 @@
+pair_mac; dev_id; dev_name; pair_token; dev_type; is_guest

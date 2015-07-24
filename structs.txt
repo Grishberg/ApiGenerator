@@ -1,0 +1,11 @@
+EKItem	EK_id, EK_type, EK_title, genre, kinopoisk_r(null), year, poster_url, rating_value(null)
+ActorInfo	actor_id, actor_photo_url, actor_name, actor_orig_name, actor_role_name, actor_role_type
+ActorFilm	EK_id, EK_type, EK_title, poster_url, actor_role_type, tv_air_date
+EkMetadata	EK_id, EP_id(null), EK_type, poster_url, EK_title, kinopoisk_r(null), rating_value(null)
+RecommendBlock	RB_id, RB_title, RB_type, List<EK_id, has_updates, rating_value(null)>
+RecommendBlockFilled	RB_id, RB_title, RB_type, List<EkMetadata(4), has_updates>
+ChannelPackage	GL_pack_id, GL_pack_name, GL_pack_chan_count, GL_is_subscribed, GL_pack_poster, GL_pack_price
+ProfileItem	profile_id, profile_name, profile_avatar_url, profile_friendship_type(null)
+EventItem	event_id, profile_id, profile_name, event_date, event_type, event_comment(null), EKItem(null), ActorInfo(null)
+ConfirmationInfo	phone_number, confirmation_type, profile_name, profile_avatar_url, profile_id
+TVChannelInfo	chan_id, chan_poster_url, chan_is_hd

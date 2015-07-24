@@ -1,0 +1,186 @@
+Идентификатор	Тип	Описание
+abon_id	int	Идентификатор абонента для связывания с GL
+abon_name	string	Имя абонента для свзязывания с GL
+abon_phone_id	int	Идентификатор телефона привязанного к абоненту GL в биллинге GL на случай если этих телефонов несколько
+abon_pass	string	пароль абонента от Личного кабинета
+access_time_left	int	количество секунд, сколько еще можно смотреть контент, 0 - не актуально
+access_token	string	SHA1 хеш для проверки авторизации по системе OAuth2
+actor_birthday	datetime	Дата рождения актера
+actor_id	int	идентификатор актера (см ER диаграмму индекса)
+actor_is_favourite	bool	является ли актер любимым для этого пользователя?
+actor_name	string	Имя актера (Киану Ривз)
+actor_orig_name	string	Оригинальное имя (Keanu Reeves)
+actor_photo_url	string	url к фотографии актера
+actor_role_name	string	Имя играемого персонажа (Нео)
+actor_role_type	enum(Actor,Director,...)	Типы ролей (Актер, Режиссер и т.д.)
+age_rating	string	Возрастной рейтинг РФ
+apartment_n	string	Номер квартиры для присоединения абонента GL
+billing_balance	int	Текущий баланс пользователя в копейках
+billing_monthly_payment	int	Ежемесячный платеж пользователя в копейках
+bubbles_count	int	Количество новых серий (показывается в шарике над ЕК)
+building_n	string	Номер дома для присоединения абонента GL
+bundle_name	string	Название пакета
+city_id	int	Идентификатор города для присоединения абонента GL
+city_name	string	Название города для присоединения абонента GL
+content_tags	string	теги для отображения на устройстве приема (метаинформация)
+content_url	string	URL к медиа-файлу для воспроизведения
+cube_name	string	Название куба на английском языке маленькими буквами (billing/ident/index... etc)
+current_page	int	Текущая запрошенная страница пагинации
+dev_access_token	string	Ouath токен доступа к методам API для устройств резолвится на сервере в dev_id
+dev_current_second	int	Текущая позиция в файле
+dev_id	string	идентификатор приставки на сервере идентификации
+dev_length_second	int	Длина текущего видео в секундах
+dev_model	string	Модель устройства воспроизведения (nv101, nv500 и т.д.)
+dev_name	string	Название устройства которое дает пользователь (Телевизор в гостинной, Приставка на работе)
+dev_refresh_token	string	OAuth токен доступа для обновления dev_access_token
+dev_type	enum(STB,SMARTTV,PC)	Тип устройства
+EK_description	string	Описание ЕК
+EK_id	int	Идентификатор сущности "Единица Контента" см ER схему индекса
+EK_title	string	Название ЕК из Индекса
+EK_title_orig	string	Оригинальное название ЕК
+EK_type	enum(Film,TVShow,SFilm,Chan)	Тип ЕК из ER диаграммы куба индекса
+EP_id	int	Идентификатор сущности "Единица Просмотра (Episode)" см ER схему индекса
+EP_id_select	int	идентификатор эпизода который нужно выбрать при открытии (следующий эпизод для просмотра)
+EP_id_t	int	Идентификатор сущности "Единица Просмотра (Episode)" см ER схему индекса (трейлер)
+EP_orig_title	string	Оригинальное название эпизода
+EP_title	string	Название эпизода
+file_name	string	Имя файла с расширением
+genre	string	Значение жанра из таблицы Индекса Genre
+GL_is_subscribed	bool	Подписан ли этот абонент GL на пакет?
+GL_pack_chan_count	int	Количество каналов в пакете в базе GL
+GL_pack_id	int	Идентификатор в базе GL пакета с пакетами
+GL_pack_name	string	Название пакета в базе GL
+GL_pack_poster	string	url постера пакета
+GL_pack_price	int	цена пакета в копейках
+GL_pack_req	enum(ALL, SUBSCRIBED)	формат запроса все подписки, либо только те что куплены
+goods_id	int	идентификатор купленой единицы
+has_updates	bool	Нужно ли показывать плашку "new"
+history_mode	enum(ALL, NOTRATED)	Выборка истории (все - по порядку, только без оценок)
+image_section	string	Произвольный идентификатор на английском языке строчными буквами, позволяет разбивать файлы по папкам для более удобного администрирования
+image_url	string	относительный url к изображению
+ip	string	IP адрес
+is_3D	bool	Показывать ли бирку 3D
+is_4K	bool	Показывать ли бирку 4K
+is_bought	bool	Куплен ли контент
+is_favourite	bool	находится ли в избранном
+is_guest	bool	Является ли сопряжение гостевым?
+is_HD	bool	Показывать ли бирку HD
+is_playing	bool	Производится ли воспроизведение сейчас?
+is_success	bool	true - если выполнено успешно, false - ошибка
+is_watch_later	bool	находится ли в списке просмотра
+is_watched	bool	Просмотрено ли?
+items_per_block	int	количество элементов внутри рекомендательного блока (подборки)
+key_id	int	идентификатор клавиши пульта
+kinopoisk_r	float	Рейтинг ЕК в системе кинопоиска, дробный
+megals	int	Номер счета в системе Мегапульт
+order_max	int	максимальное значение индекса серии сериала в БД (чтобы знать когда остановиться проигрывать следующую серию)
+order_min	int	минимальное значение индекса серии сериала в БД (начало сезона) используется для перехода на след/предыдущую серию
+order_start	int	текущее значение индекса серии сериала в БД
+pair_code	string	9-ти значный секретный код сопряжения
+pair_mac	string	MAC адрес устройства приема
+pair_mq_url	string	сетевой адрес сервера MQ
+pair_timeout	int	время жизни pair_token на сервере сопряжения в секундах (пока сопряжение не установилось) 1 час
+pair_token	string	токен управления устройством воспроизведения
+phone_number	string	Номер телефона в формате "+7XXXXXXXXXX"
+phone_number_hidden	string	Номер телефона в формате "+7XXXXXXXXXX" где некоторые цифры заменены на звездочки
+poster_url	string	Относительный url к изображению
+price	int	Стоимость релиза в копейках 12р 40к = 1240
+profile_avatar_url	string	URL на картинку с аватаром
+profile_birthday	datetime	Дата рождения пользователя
+profile_id	int	Идентификатор профиля см ER схему Идентификации
+profile_name	string	Отображаемое имя профиля
+profile_last_name	string	Фамилия пользователя
+profile_role	string	Роль профиля в его MegaLS (master/slave)
+profile_sex	enum(NotSet,Male,Female)	Пол пользователя
+profile_friendship_type	enum(Nothing, Mutual, Fan, Idol)	Тип отношений - нет/взаимные подписчики/подписан на вас/вы подписаны на него
+purchase_date	unix timestamp	дата и время покупки
+purchase_type	enum(PURCHASE,SUBSCRIPTION)	Тип покупки PURCHASE - ЕК, SUBSCRIPTION - подписка
+purchase_value	int	Стоимость покупки в копйках
+rating_value	int	Оценка пользователя за контент от 1 до 10
+RB_id	int	Идентификатор рекомендательного блока
+RB_queue_count	int	количество элементов внутри рекомендательного блока типа QUEUE (подборки)
+RB_teaser_count	int	количество элементов внутри рекомендательного блока типа TEASER (подборки)
+RB_title	string	Заголовок рекомендательного блока
+RB_type	enum(QUEUE, TEASER, LIST)	Тип рекомендательного блока QUEUE - очередь просмотров, TEASER - фиксированные на ширину блоки с проваливанием, LIST - вертикальный список рекомендаций, с бесконечной прокруткой
+rec_reason	string	Произвольная строка с коротким объяснением почему это рекомендовано
+refresh_token	string	SHA1 хеш для генерации access_token авторизации по системе OAuth2
+release_id	int	Идентификатор релиза (см. ER схему индекса)
+req_quality	enum(4K,1080p,720p,480p)	Запрашиваемое устройством качество
+search_query	string	Строка запроса на поиск
+search_scope_cast	enum(Cast_fav, Cast_EK)	Область поиска для актеров
+search_scope_EK	enum(EK_ALL, EK_Film, EK_TVShow, EK_TV, EK_XXX, EK_Favourite, EK_history_all, EK_history_unrated, EK_by_cast, EK_by_category)	Область поиска для единиц контента
+search_scope_profile	enum(Profile_subscribers, Profile_mysubsribes)	Область поиска для профилей
+search_scope_events	enum(Events_profile,  Events_social_EK)	Область поиска для событий
+seek_pos	int	секунда на которую нужно перемотать видео
+sms_code	int	Код подтверждения по sms 4х значное число
+sound_studio	string	Название студии озвучки
+street_id	int	Идентификатор улицы для присоединения абонента GL
+street_name	string	Название улицы для присоединения абонента GL
+tab_id	enum(Main,Films,Series,TV,Clips,Sport,Kids,XXX)	Возможное значение типа вкладки в мобильном приложении, предопределны
+tv_air_date	unix timestamp	Дата показа тв передачи например 24.06.2015
+tv_length	int	Длина передачи в секундах
+tv_start_time	int	Время начала передачи в секундах с 0:00 этого дня, например если передача идет в 12:30 то будет 45000 = (12*60 + 30)*60
+event_id	int	идентификатор события
+event_date	unix timestamp	время события
+event_type	enum(Rate,LikeCast,UnlikeCast)	Тип события - поставил рейтинг, поставил лайк актеру
+event_comment	string	текст комментария
+result_join_megals	enum(CREATE,JOIN_REQUEST,JOIN,JOIN_MAX_ERROR  )	"результат добавления к МегаЛС. 
+CREATE - создан МегаЛС
+JOIN_REQUEST - отправлена заявка на присоединение
+JOIN - произошло присоединение
+JOIN_MAX_ERROR - превышено максимально допустимое число пользователей в МегаЛС
+"
+social_new_msg_count	int	Количество новых сообщений для пользователя
+stream_id	int	Идентификатор видео-потока (канала)
+stream_url	string	Адрес видео-потока
+stream_name	string	Название потока
+stream_poster_url	string	Адрес постера канала
+actors_limit	int	Максимальное количество актеров для экрана оценки после просмотра
+last_open_time	unix timestamp	время с которого нужно запросить изменения
+last_episode_added	unix timestamp	Дата добавления последнего эпизода
+new_episodes_count	int	количество эпизодов с момента запроса
+confirmation_type	enum(FAMILY, SUBSCRIBER, INFO_MASTER) 	Тип запроса в профиле FAMILY - запрос на семеный доступ, SUBSCRIBER - уведомление о фолловинге (быстрый взаимный фолловинг), INFO_MASTER - увдомление о присоединении без реакции
+profile_followers_count	int	Количество подписчиков
+profile_following_count	int	Количество профилей за которыми следит пользователь
+profile_family_count	int	Количество людей в семейном доступе
+profile_is_hidden	bool	Закрытый ли профиль
+profile_EK_watched_count	int	Количество элементов в истории пользователя
+profile_fav_cast_count	int	Количество любимых актеров
+oauth_client_id	string	Идентификатор клиента Oauth
+oauth_client_secret	string	Секрет клиента Oauth
+oauth_grant_type	string	Тип авторизации Oauth
+family_profile_id	int	Идентификатор пользователя которого нужно принять/не принять в семейный доступ
+followback_profile_id	int	Идентификатор пользователя которого нужно зафолловить в ответ
+other_profile_id	int	Идентификактор другого пользователя (которого мы просматриваем)
+profile_can_buy	bool	Индикатор того что пользователь может делать покупки с общего счета
+profile_can_xxx	bool	Индикатор того что пользователь видит раздел и контент XXX
+access_scope	enum(BUY,XXX)	Область где изменяем доступ
+is_granted	bool	Есть ли доступ или нет
+tutorial_url	string	Путь к видео-ролику для обучения
+hint_text	string	Текст стартовой подсказки
+hint_poster_url	string	Путь к изображению стартовой подсказки
+is_reg_complete	bool	Индикатор того что регистрация завершена и дальнейшие шаги по привязке не требуются
+is_reg_master	bool	Индикатор того что пользователь стал мастером, в противном случае мастеру отправлено уведомление на присоединение этого человека
+push_token	string	Device token для push уведомлений
+push_text	string	Сообщение для пользователя
+last_sync_time	unix timestamp	Время последней синхронизации
+last_update_time	unix timestamp	Время последнего изменения записи
+search_data_source	enum(EK, CAST, FAV_EK, FAV_CAST, HISTORY_EK, EVENT, PROFILE, PROFILE_FRIENDSHIP)	"Тип синхронизации которую нужно выполнить (произошли новые изменения)
+EK - новые ЕК, поменялась инфо о старых
+CAST - новые актеры, изменились связи с фильмами у актеров
+FAV_EK, - ЕК добавлены/убраны в избранное пользователями
+FAV_CAST - Актеры добавлены/убраны в избранное пользователями
+HISTORY_EK - ЕК добавлено в историю
+EVENT - появились новые события
+PROFILE - добавились новые профили, обновились старые
+PROFILE_FRIENDSHIP - изменения в стасусах подписчиков"
+abon_login	string	Логин абонента GL
+is_in_favourite	bool	Находится ли элемент в избранном
+page_number	int	Номер страницы для пагинации, первая страница имеет номер 1
+limit	int	Количество элементов на странице пагинации
+auth_next_step	enum(NONE, MAIN, MASTER, JOIN)	"Определяет следующий шаг приложения
+NONE - нет значения
+MAIN - перейти на главный экран GUI-112, начинаем работать как обычно
+MASTER - перейти на экран GUI-108 (Завершение привязки с уведомлением что пользователь стал мастером)
+JOIN - перейти на экран GUI-104
+SELECT - перейти на экран GUI-106 (выбор абонента)"
