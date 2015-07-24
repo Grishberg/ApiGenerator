@@ -1,3 +1,4 @@
+import os
 s = "getEKInfoSD2"
 def getConstName(name):
     out = []
@@ -23,4 +24,6 @@ def getConstName(name):
         sOut += i
     return sOut.upper()
 
-print getConstName(s)
+
+print s[0].upper() + s[1:]
+print os.path.dirname(os.path.abspath(__file__))

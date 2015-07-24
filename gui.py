@@ -5,16 +5,17 @@
 
 from Tkinter import *
 from decoder import *
+import os
 
 class Application(Tk):
     def __init__(self, master=None):                    
         Tk.__init__(self, master)                    
         self.createWidgets()
-        self.decoder = Decoder("/home/g/PROJECTS/python/ApiDecoder/")
+        self.decoder = Decoder(os.path.dirname(os.path.abspath(__file__))+"/")
                                                          
     def createWidgets(self):
         self.title("генератор API")
-        colWidth = 60
+        colWidth = 80
 
         menu = Menu(self)
         self.config(menu=menu)
@@ -49,11 +50,11 @@ class Application(Tk):
         lbl = Label(subFrameFunc, text="название процедуры").grid(row =0, column =0)
         lbl = Label(subFrameFunc, text="параметры процедуры").grid(row =0, column =1)
         
-        self.inputFuncName = Text(subFrameFunc, width=30, height=2)
+        self.inputFuncName = Text(subFrameFunc, width=colWidth/2, height=2)
         self.inputFuncName.grid(row=1, column=0)
         self.inputFuncName.insert(AtInsert(), "")
 
-        self.inputFuncParam = Text(subFrameFunc, width=30, height=2)
+        self.inputFuncParam = Text(subFrameFunc, width=colWidth/2, height=2)
         self.inputFuncParam.grid(row=1, column=1)
         self.inputFuncParam.insert(AtInsert(), "")
 
@@ -113,6 +114,9 @@ class Application(Tk):
 
         out = self.decoder.generateInterface(funcName)
         self.outInterfaceTxt.insert(AtInsert(), out)
+
+        out = self.decoder.generateService(funcName)
+        self.outServiceTxt.insert(AtInsert(), out)
         
                                                         
 app = Application()                                 

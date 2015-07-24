@@ -90,8 +90,13 @@ class Decoder:
     def generateVarName(self, oldName):
         newName = ""
         lst = oldName.lower().split("_")
+        firstSymbol = 1
         for i in lst:
-            newName += i[0].upper()
+            if firstSymbol:
+                newName += i[0].lower()
+                firstSymbol = 0
+            else:
+                newName += i[0].upper()
             if len(i) > 1:
                 newName += i[1:]
         return newName
@@ -170,7 +175,6 @@ class Decoder:
                 out += "//-- array\n"
             else:
                 tp = self.getType(i)
-                print "w=",i
                 out += "@SerializedName (Rest.const."+ i.upper() +")\n"
                 out += "private "+ tp[0]+" " +\
                        self.generateVarName(i)+";\n\n"
@@ -187,14 +191,60 @@ class Decoder:
     def generateConstFunc(self, name):
         return "public static final String "+ self.generateConstNameFromFunc(name) +\
                ' = "/'+name+'";'
-
+    def generateServiceName(self, name):
+        return name+"Service"
     def generateInterface(self, name):
-        out = "public interface "+name+"Service {\n"
+        out = "public interface "+self.generateServiceName(name)+" {\n"
         out += "\t@FormUrlEncoded\n"
         out += "\t@POST(RestConst.api."+self.generateConstNameFromFunc(name)+")\n"
         out += "\tvoid "+name+"(@Field(RestConst.field.ACCESS_TOKEN) String accessToken,\n"
         out += "\t\t/*TODO: generate parameters*/,\n"
         out += "\t\tCallback<Response> callback);\n"
         out += "}\n"
-        return out                                                                    
+        return out
+    
+    def getWorcerNameFromFuncName(self, name):
+        out = name[0].upper() + name[1:] + "Worker"
+        return out
+    
+    def generateService(self, name):
+        className = self.getWorcerNameFromFuncName(name)
+        serviceName = self.generateServiceName(name)
+        out ="public class " + className +" extends BaseWorker{\n"
+        out += "public static final String TAG = "+ className + ".class.getSimpleName();\n"
+        out += "private static "+className+" sInstance;\n"
+        out += "private "+serviceName+" mService;\n"
+        out += "private "+className+"() {\n"
+        out += "\tmService = buildRestAdapter().create("+serviceName+"+.class);\n"
+        out += "}\n\n"
+        out += "public static "+className+" getInstance() {\n"
+        out += "\tif (sInstance == null) {\n"
+        out += "\t\tsInstance = new "+className+"();\n"
+        out += "\t}\n"
+        out += "\treturn sInstance;\n"
+        out += "}\n\n"
+        out += "public void "+name+"(/*TODO: add some params*/) {\n"
+        out += "\tmService."+name+"(getAccessToken()\n"
+        out += "\t\t/*SOME PARAMS*/\n"
+        out += "\t\t, new Callback<Request>() {\n"
+        out += "\t\t\t@Override\n"
+        out += "\t\t\tpublic void success(/*SOME PARAM*/, Response response) {\n"
+        out += '\t\t\t\t\tLog.d(TAG, "on success");\n'
+        out += '\t/*\n'
+        out += '\t\t\t\tRealm realm = Realm.getDefaultInstance();\n'
+        out += '\t\t\t\trealm.beginTransaction();\n'
+        out += '\t\t\t\trealm.copyToRealmOrUpdate(contentEntry);\n'
+        out += '\t\t\t\trealm.commitTransaction();\n'
+        out += '\t\t\t\trealm.close();\n'
+        out += '\t\t\t\t//App.getBus().post(new '+className+'Event(true));\n'
+        out += '\t\t\t*/\n}\n'
+        out += '\t\t\t@Override\n'
+        out += '\t\t\tpublic void failure(RetrofitError error) {\n'
+        out += '\t\t\t\t//App.getBus().post(new GetSimilarEvent(false));\n'
+        out += '\t\t\t\tLog.d(TAG, "on fail");\n'
+        out += '\t\t\t}\n'
+        out += '\t\t});\n'
+        out += '\t}\n}\n'
+        return out
+
     
