@@ -56,7 +56,7 @@ class Decoder:
                 self.varArray.append([varName, varType, varDesc])
 
     def getJavaType(self, t):
-        typesApi  = ["string","integer" ,"boolean", "float"]
+        typesApi  = ["string","integer" ,"bool", "float"]
         typesJava = [u"String",u"int"   ,u"boolean", u"float"]
         lowerType = t.lower().strip()
         for i in range(len(typesApi)):
@@ -175,7 +175,7 @@ class Decoder:
                 out += "//-- array\n"
             else:
                 tp = self.getType(i)
-                out += "@SerializedName (Rest.const."+ i.upper() +")\n"
+                out += "@SerializedName (RestConst.responseField."+ i.upper() +")\n"
                 out += "private "+ tp[0]+" " +\
                        self.generateVarName(i)+";\n\n"
         return out
