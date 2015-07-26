@@ -191,14 +191,26 @@ class Decoder:
     def generateConstFunc(self, name):
         return "public static final String "+ self.generateConstNameFromFunc(name) +\
                ' = "/'+name+'";'
+    
     def generateServiceName(self, name):
         return name+"Service"
-    def generateInterface(self, name):
+    
+    def generateInterface(self, name, params):
+        p = self.getParams(params, 0)
         out = "public interface "+self.generateServiceName(name)+" {\n"
         out += "\t@FormUrlEncoded\n"
         out += "\t@POST(RestConst.api."+self.generateConstNameFromFunc(name)+")\n"
-        out += "\tvoid "+name+"(@Field(RestConst.field.ACCESS_TOKEN) String accessToken,\n"
-        out += "\t\t/*TODO: generate parameters*/,\n"
+        out += "\tvoid "+name+"("
+        for i in range(len(p)):
+            tp = self.getType(p[i])
+            if i > 0:
+                out += "\t\t"
+            out += "@Field(RestConst.field."+ p[i].upper() +") " + tp[0] +" "+\
+                   self.generateVarName(p[i])
+            if i < len(p)-1:
+                out+= ","
+            out += "\n"
+        
         out += "\t\tCallback<Response> callback);\n"
         out += "}\n"
         return out
@@ -207,7 +219,8 @@ class Decoder:
         out = name[0].upper() + name[1:] + "Worker"
         return out
     
-    def generateService(self, name):
+    def generateService(self, name, params):
+        p = self.getParams(params, 0)
         className = self.getWorcerNameFromFuncName(name)
         serviceName = self.generateServiceName(name)
         out ="public class " + className +" extends BaseWorker{\n"
@@ -223,12 +236,29 @@ class Decoder:
         out += "\t}\n"
         out += "\treturn sInstance;\n"
         out += "}\n\n"
-        out += "public void "+name+"(/*TODO: add some params*/) {\n"
-        out += "\tmService."+name+"(getAccessToken()\n"
-        out += "\t\t/*SOME PARAMS*/\n"
+        out += "public void "+name+"( "
+        for i in range(len(p)):
+            tp = self.getType(p[i])
+            if i > 0:
+                out += "\t\t"
+            out += tp[0] +" "+self.generateVarName(p[i])
+            if i < len(p)-1:
+                out+= ","
+            out += "\n"        
+        out += " ) {\n"
+        out += "\tmService."+name+"("
+        for i in range(len(p)):
+            tp = self.getType(p[i])
+            if i > 0:
+                out += "\t\t"
+            out += self.generateVarName(p[i])
+            if i < len(p)-1:
+                out+= ","
+            out += "\n"        
+
         out += "\t\t, new Callback<Request>() {\n"
         out += "\t\t\t@Override\n"
-        out += "\t\t\tpublic void success(/*SOME PARAM*/, Response response) {\n"
+        out += "\t\t\tpublic void success(Response resp, Response response) {\n"
         out += '\t\t\t\t\tLog.d(TAG, "on success");\n'
         out += '\t/*\n'
         out += '\t\t\t\tRealm realm = Realm.getDefaultInstance();\n'
@@ -246,5 +276,4 @@ class Decoder:
         out += '\t\t});\n'
         out += '\t}\n}\n'
         return out
-
     

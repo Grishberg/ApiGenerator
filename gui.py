@@ -108,14 +108,20 @@ class Application(Tk):
         self.outInterfaceTxt.delete('1.0',END)
         self.outServiceTxt.delete('1.0',END)
         funcName = self.inputFuncName.get("1.0",END).replace('"','').strip()
+        params = self.inputFuncParam.get("1.0",END).replace('"','').strip()
         out = self.decoder.generateConstFunc(funcName)
         self.outInterfaceTxt.insert(AtInsert(), out)
         self.outInterfaceTxt.insert(AtInsert(), "\n\n")
 
-        out = self.decoder.generateInterface(funcName)
+        out = self.decoder.generateConst(params)
         self.outInterfaceTxt.insert(AtInsert(), out)
 
-        out = self.decoder.generateService(funcName)
+        self.outInterfaceTxt.insert(AtInsert(), "\n\n")
+
+        out = self.decoder.generateInterface(funcName, params)
+        self.outInterfaceTxt.insert(AtInsert(), out)
+
+        out = self.decoder.generateService(funcName, params)
         self.outServiceTxt.insert(AtInsert(), out)
         
                                                         
