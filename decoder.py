@@ -219,16 +219,24 @@ class Decoder:
         out += "\t@FormUrlEncoded\n"
         out += "\t@POST(RestConst.api."+self.generateConstNameFromFunc(name)+")\n"
         out += "\tvoid "+name+"("
+        """
         for i in range(len(p)):
-            tp = self.getType(p[i])
             if i > 0:
                 out += "\t\t"
-            out += "@Field(RestConst.field."+ p[i].upper() +") " + tp[0] +" "+\
-                   self.generateVarName(p[i])
+            out += "@Field(RestConst.field."
+            if type(p[i]) == type([]) :
+                tp = self.getType(p[i][0])
+                out += p[i][0].upper() +") "
+                out += "List<"+tp[0] +"> " + self.generateVarName(p[i][0])
+            else:
+                tp = self.getType(p[i])
+                out +=p[i]
+                out += tp[0] +" " + self.generateVarName(p[i][0])
+            
             if i < len(p)-1:
                 out+= ","
             out += "\n"
-        
+        """
         out += "\t\tCallback<Response> callback);\n"
         out += "}\n"
         return out
@@ -255,6 +263,7 @@ class Decoder:
         out += "\treturn sInstance;\n"
         out += "}\n\n"
         out += "public void "+name+"( "
+        """
         for i in range(len(p)):
             tp = self.getType(p[i])
             if i > 0:
@@ -273,7 +282,7 @@ class Decoder:
             if i < len(p)-1:
                 out+= ","
             out += "\n"        
-
+        """
         out += "\t\t, new Callback<Request>() {\n"
         out += "\t\t\t@Override\n"
         out += "\t\t\tpublic void success(Response resp, Response response) {\n"
