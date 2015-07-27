@@ -179,6 +179,24 @@ class Decoder:
                 out += "private "+ tp[0]+" " +\
                        self.generateVarName(i)+";\n\n"
         return out
+
+    def getFlatParamList(self, arr):
+        out = []
+        for i in arr:
+            if type(i) == type([]):
+                innerParams = self.getFlatModel(i)
+                for el in innerParams:
+                    out.append(el)
+                out += s
+                out += "//-- array\n"
+            else:
+                tp = self.getType(i)
+                out.append(i,self.generateVarName(i),tp[0], tp[1])
+        return out
+    
+    def getFlatParams(self, params):
+        p = self.getParams(params, 0)
+        return self.getFlatParamList(p)
         
     def generateConst(self, params):
         p = self.getParams(params, 0)

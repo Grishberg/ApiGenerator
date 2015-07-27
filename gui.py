@@ -4,6 +4,7 @@
 # $Id: widgets.py,v 4.0 2001/11/04 12:43:09 rnd Exp $
 
 from Tkinter import *
+from ttk import *
 from decoder import *
 import os
 
@@ -12,10 +13,11 @@ class Application(Tk):
         Tk.__init__(self, master)                    
         self.createWidgets()
         self.decoder = Decoder(os.path.dirname(os.path.abspath(__file__))+"/")
+        self.params = []
                                                          
     def createWidgets(self):
         self.title("генератор API")
-        colWidth = 80
+        colWidth = 60
 
         menu = Menu(self)
         self.config(menu=menu)
@@ -65,6 +67,10 @@ class Application(Tk):
 
         inputParamLabel = Label(subFrame, text="входящие параметры")
         inputParamLabel.grid(row =0, column =0)
+        #========= ListBox ===========
+	
+        lb = Listbox(frame,height=18,width=colWidth,selectmode=EXTENDED)
+        lb.grid(row = 4, column = 2)
         #========= text area =========
         self.inputTxt = Text(frame, width=colWidth, height=10)
         self.inputTxt.grid(row=2, column=0)
@@ -108,22 +114,34 @@ class Application(Tk):
         self.outInterfaceTxt.delete('1.0',END)
         self.outServiceTxt.delete('1.0',END)
         funcName = self.inputFuncName.get("1.0",END).replace('"','').strip()
-        params = self.inputFuncParam.get("1.0",END).replace('"','').strip()
+        outParams = self.inputTxt.get("1.0",END).replace('"','')
+        inParams = self.inputFuncParam.get("1.0",END).replace('"','').strip()
         out = self.decoder.generateConstFunc(funcName)
         self.outInterfaceTxt.insert(AtInsert(), out)
         self.outInterfaceTxt.insert(AtInsert(), "\n\n")
 
-        out = self.decoder.generateConst(params)
+        out = self.decoder.generateConst(inParams)
         self.outInterfaceTxt.insert(AtInsert(), out)
 
         self.outInterfaceTxt.insert(AtInsert(), "\n\n")
 
-        out = self.decoder.generateInterface(funcName, params)
+        out = self.decoder.generateInterface(funcName, inParams)
         self.outInterfaceTxt.insert(AtInsert(), out)
 
-        out = self.decoder.generateService(funcName, params)
+        out = self.decoder.generateService(funcName, inParams)
         self.outServiceTxt.insert(AtInsert(), out)
-        
+        self.params = self.decoder.getFlatParams(inParams)
+        self.params += self.decoder.getFlatParams(outParams)
+        lst = []
+        for i in self.params:
+            lst.append(i[0])
+        self.cb = Combobox(frame,values = lst, width=colWidth, height=3, style='Kim.TButton', foreground='#FF0000',state='readonly')
+        self.cb.grid(row = 2, column = 2)
+        self.cb.bind('<<ComboboxSelected>>', self.getSelected)        
+
+    def getSelected(self):
+        sel = self.cb.get()
+        print sel
                                                         
 app = Application()                                 
 app.mainloop()   
