@@ -246,7 +246,7 @@ class Decoder:
         out += "private static "+className+" sInstance;\n"
         out += "private "+serviceName+" mService;\n"
         out += "private "+className+"() {\n"
-        out += "\tmService = buildRestAdapter().create("+serviceName+".class);\n"
+        out += "\tmService = buildRestAdapter().create("+serviceName+"+.class);\n"
         out += "}\n\n"
         out += "public static "+className+" getInstance() {\n"
         out += "\tif (sInstance == null) {\n"
